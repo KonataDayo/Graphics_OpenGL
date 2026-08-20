@@ -41,4 +41,6 @@ public:
 	glm::mat4 GetLookAtMatrix() const;
 
 	inline float GetFOV() const { return m_FOV; }
+
+	inline glm::vec3 GetCameraLocation() const { return m_CameraLocation; }
 };

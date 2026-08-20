@@ -20,6 +20,7 @@
 #include "test/TestCube3D.h"
 #include "test/TestFOV.h"
 #include "test/TestTexture2D.h"
+#include "test/SimpleLightScene/TestSimpleLightScene.h"
 
 int main(void)
 {
@@ -67,6 +68,7 @@ int main(void)
     testMenu->RegisterTest<test::TestCube3D>("Draw A Cube");
     testMenu->RegisterTest<test::TestFOV>("FOV Test");
     testMenu->RegisterTest<test::TestCamera>("Camera Test");
+    testMenu->RegisterTest<test::TestSimpleLightScene>("Blinn-Phong");
 
     currentTest = testMenu;
 
