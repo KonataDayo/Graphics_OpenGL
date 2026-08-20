@@ -1,0 +1,35 @@
+# Visual Studio
+.vs/
+
+# Build folders
+Debug/
+Release/
+x64/
+x86/
+
+# Intermediate files
+obj/
+bin/
+
+# Visual Studio generated files
+*.user
+*.suo
+*.pdb
+*.ilk
+*.obj
+*.tlog
+
+# Executables / libraries
+*.exe
+*.dll
+*.lib
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+build/
+
+# OS
+.DS_Store
+Thumbs.db
