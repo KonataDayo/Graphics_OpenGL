@@ -99,6 +99,12 @@
     <ClCompile Include="src\Object.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\test\Spotlight\TestSpotlight.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\HDR\TestHDR.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.shader" />
@@ -525,6 +531,8 @@
     <None Include="res\shaders\ThreeDimension.shader" />
     <None Include="res\shaders\BlinnPhong.shader" />
     <None Include="res\shaders\LightSource.shader" />
+    <None Include="res\shaders\Spotlight.shader" />
+    <None Include="res\shaders\BlinnPhongWithGammaCorrection.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -1476,6 +1484,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\Spotlight\TestSpotlight.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\HDR\TestHDR.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

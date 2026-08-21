@@ -8,7 +8,6 @@
 #include "glm/gtx/transform.hpp"
 #include "ImGui/imgui.h"
 #include "util/Camera.h"
-#include "util/ObjParser.h"
 
 test::TestSimpleLightScene::TestSimpleLightScene()
 	: m_AmbientStrength(0.1f), m_DiffuseCoefficient(0.4f),m_Intensity(20),m_SpecularLobeSize(16.f),
@@ -93,13 +92,9 @@ test::TestSimpleLightScene::TestSimpleLightScene()
     m_TeapotRotation = glm::vec3(0.f,0.f,0.f);
     m_TeapotScale = glm::vec3(1.f,1.f,1.f);
 
-    std::vector<Vertex> teapot_vertices;
-    std::vector<unsigned int> teapot_indices;
     m_TeapotShader = std::make_unique<Shader>("res/shaders/BlinnPhong.shader");
     m_TeapotObj = std::make_unique<Object>(
 		"res/meshes/utah_teapot_res4.obj", 
-        teapot_vertices, 
-        teapot_indices,
 		m_TeapotWorldPosition,
         m_TeapotRotation,
         m_TeapotScale
@@ -114,7 +109,7 @@ test::TestSimpleLightScene::TestSimpleLightScene()
     m_ObjVAO->Bind();
 	m_CubeVBO = std::make_unique<VertexBuffer>(vertices, 144 * sizeof(float));
     m_CubeIBO = std::make_unique<IndexBuffer>(indices, 36);
-    m_ObjShader = std::make_unique<Shader>("res/shaders/BlinnPhong.shader");
+    m_ObjShader = std::make_unique<Shader>("res/shaders/BlinnPhongWithGammaCorrection.shader");
     VertexBufferLayout objLayout;
     objLayout.Push<float>(3); // positions
     objLayout.Push<float>(3); // normals

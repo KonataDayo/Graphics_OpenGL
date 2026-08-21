@@ -148,7 +148,9 @@
     <ClCompile Include="src\ImGui\imgui_draw.cpp" />
     <ClCompile Include="src\ImGui\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="src\Object.cpp" />
+    <ClCompile Include="src\test\HDR\TestHDR.cpp" />
     <ClCompile Include="src\test\SimpleLightScene\TestSimpleLightScene.cpp" />
+    <ClCompile Include="src\test\Spotlight\TestSpotlight.cpp" />
     <ClCompile Include="src\test\Test.cpp" />
     <ClCompile Include="src\test\TestCamera.cpp" />
     <ClCompile Include="src\test\TestCube3D.cpp" />
@@ -168,7 +170,9 @@
   <ItemGroup>
     <None Include="Basic.shader" />
     <None Include="res\shaders\BlinnPhong.shader" />
+    <None Include="res\shaders\BlinnPhongWithGammaCorrection.shader" />
     <None Include="res\shaders\LightSource.shader" />
+    <None Include="res\shaders\Spotlight.shader" />
     <None Include="res\shaders\ThreeDimension.shader" />
     <None Include="src\glm\detail\func_common.inl" />
     <None Include="src\glm\detail\func_common_simd.inl" />
@@ -613,7 +617,9 @@
     <ClInclude Include="src\stb_rect_pack.h" />
     <ClInclude Include="src\stb_textedit.h" />
     <ClInclude Include="src\stb_truetype.h" />
+    <ClInclude Include="src\test\HDR\TestHDR.h" />
     <ClInclude Include="src\test\SimpleLightScene\TestSimpleLightScene.h" />
+    <ClInclude Include="src\test\Spotlight\TestSpotlight.h" />
     <ClInclude Include="src\test\TestCamera.h" />
     <ClInclude Include="src\test\TestCube3D.h" />
     <ClInclude Include="src\test\TestFOV.h" />

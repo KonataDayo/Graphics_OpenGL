@@ -1,10 +1,10 @@
 #include "../Object.h"
 #include "util/ObjParser.h"
 
-Object::Object(const std::string& filepath,
-	std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, glm::vec3 world_position,
-    glm::vec3 rotation, glm::vec3 scale)
+Object::Object(const std::string& filepath,glm::vec3 world_position,glm::vec3 rotation, glm::vec3 scale)
 {
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
 	util::ObjParser::ParseOBJ(filepath, vertices, indices);
 	m_Mesh = std::make_unique<util::Mesh>(vertices, indices);
 
