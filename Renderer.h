@@ -6,6 +6,13 @@
     x;\
     ASSERT(GLLogCall(#x, __FILE__, __LINE__))
 
+class Object;
+
+namespace util
+{
+	class Mesh;
+}
+
 class Shader;
 class IndexBuffer;
 class VertexArray;
@@ -19,5 +26,7 @@ private:
 
 public:
 	void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
+    void DrawMesh(util::Mesh& mesh, const Shader& shader) const;
+    void DrawObject(Object& object, const Shader& shader) const;
     void Clear() const;
 };

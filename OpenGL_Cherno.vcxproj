@@ -147,6 +147,7 @@
     <ClCompile Include="src\ImGui\imgui_demo.cpp" />
     <ClCompile Include="src\ImGui\imgui_draw.cpp" />
     <ClCompile Include="src\ImGui\imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="src\Object.cpp" />
     <ClCompile Include="src\test\SimpleLightScene\TestSimpleLightScene.cpp" />
     <ClCompile Include="src\test\Test.cpp" />
     <ClCompile Include="src\test\TestCamera.cpp" />
@@ -154,6 +155,9 @@
     <ClCompile Include="src\test\TestFOV.cpp" />
     <ClCompile Include="src\test\TestTexture2D.cpp" />
     <ClCompile Include="src\util\Camera.cpp" />
+    <ClCompile Include="src\util\Mesh.cpp" />
+    <ClCompile Include="src\util\ObjParser.cpp" />
+    <ClCompile Include="src\util\Transform.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="src\test\TestClearColor.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -605,6 +609,7 @@
     <ClInclude Include="src\ImGui\imgui.h" />
     <ClInclude Include="src\ImGui\imgui_impl_glfw_gl3.h" />
     <ClInclude Include="src\ImGui\imgui_internal.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="src\stb_rect_pack.h" />
     <ClInclude Include="src\stb_textedit.h" />
     <ClInclude Include="src\stb_truetype.h" />
@@ -614,6 +619,9 @@
     <ClInclude Include="src\test\TestFOV.h" />
     <ClInclude Include="src\test\TestTexture2D.h" />
     <ClInclude Include="src\util\Camera.h" />
+    <ClInclude Include="src\util\Mesh.h" />
+    <ClInclude Include="src\util\ObjParser.h" />
+    <ClInclude Include="src\util\Transform.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="src\test\Test.h" />
     <ClInclude Include="src\test\TestClearColor.h" />

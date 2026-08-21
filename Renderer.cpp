@@ -1,8 +1,10 @@
 #include "Renderer.h"
 #include <iostream>
 #include "IndexBuffer.h"
+#include "Object.h"
 #include "Shader.h"
 #include "VertexArray.h"
+#include "util/Mesh.h"
 
 void GLClearError()
 {
@@ -28,6 +30,18 @@ void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& 
 
 	// DrawCall
 	GLCall(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr));
+}
+
+void Renderer::DrawMesh(util::Mesh& mesh, const Shader& shader) const
+{
+	shader.Bind();
+	mesh.Draw();
+}
+
+void Renderer::DrawObject(Object& object, const Shader& shader) const
+{
+	shader.Bind();
+	object.DrawObject();
 }
 
 void Renderer::Clear() const

@@ -8,6 +8,7 @@
 #include "glm/gtx/transform.hpp"
 #include "ImGui/imgui.h"
 #include "util/Camera.h"
+#include "util/ObjParser.h"
 
 test::TestSimpleLightScene::TestSimpleLightScene()
 	: m_AmbientStrength(0.1f), m_DiffuseCoefficient(0.4f),m_Intensity(20),m_SpecularLobeSize(16.f),
@@ -88,6 +89,25 @@ test::TestSimpleLightScene::TestSimpleLightScene()
         22,23,20
     };
 
+    m_TeapotWorldPosition = glm::vec3(0.f,0.f,0.f);
+    m_TeapotRotation = glm::vec3(0.f,0.f,0.f);
+    m_TeapotScale = glm::vec3(1.f,1.f,1.f);
+
+    std::vector<Vertex> teapot_vertices;
+    std::vector<unsigned int> teapot_indices;
+    m_TeapotShader = std::make_unique<Shader>("res/shaders/BlinnPhong.shader");
+    m_TeapotObj = std::make_unique<Object>(
+		"res/meshes/utah_teapot_res4.obj", 
+        teapot_vertices, 
+        teapot_indices,
+		m_TeapotWorldPosition,
+        m_TeapotRotation,
+        m_TeapotScale
+    );
+
+    //util::ObjParser::ParseOBJ("res/meshes/utah_teapot_res4.obj", teapot_vertices, teapot_indices);
+    //m_Teapot =std::make_unique<util::Mesh>(teapot_vertices, teapot_indices);
+
     GLCall(glEnable(GL_DEPTH_TEST));
 
 	m_ObjVAO = std::make_unique<VertexArray>();
@@ -136,24 +156,29 @@ void test::TestSimpleLightScene::OnRender()
 	lightRenderer.Draw(*m_LightPointVAO, *m_CubeIBO, *m_LightPointShader);
 
     // Object
-    Renderer objRenderer;
-    glm::mat4 obj_model = glm::translate(glm::mat4(1.f), m_ObjPosition);
-    glm::mat4 obj_mvp = proj * view * obj_model;
-    m_ObjShader->Bind();
-    m_ObjShader->SetUniformMat4f("u_Model", obj_model);
-    m_ObjShader->SetUniformMat4f("u_MVP", obj_mvp);
-    m_ObjShader->SetUniform4f("u_LightColor", m_LightColor[0], m_LightColor[1], m_LightColor[2], m_LightColor[3]);
-    m_ObjShader->SetUniform4f("u_ObjColor", m_ObjColor[0], m_ObjColor[1], m_ObjColor[2], m_ObjColor[3]);
-    m_ObjShader->SetUniform1f("u_AmbientStrength", m_AmbientStrength);
-    m_ObjShader->SetUniform1f("u_DiffuseCoefficient", m_DiffuseCoefficient);
-	m_ObjShader->SetUniform3f("u_LightPosition", m_LightPosition.x, m_LightPosition.y, m_LightPosition.z);
-    m_ObjShader->SetUniform1f("u_Intensity", m_Intensity);
-    m_ObjShader->SetUniform1f("u_SpecularCoefficient", m_SpecularCoefficient);
-    m_ObjShader->SetUniform1f("u_SpecularSize", m_SpecularLobeSize);
     glm::vec3 cameraLocation = m_Camera->GetCameraLocation();
-    m_ObjShader->SetUniform3f("u_CameraLocation",cameraLocation.x, cameraLocation.y, cameraLocation.z);
-	objRenderer.Draw(*m_ObjVAO, *m_CubeIBO, *m_ObjShader);
-
+    Renderer teapotRenderer;
+    util::Transform teapot_transform;
+    teapot_transform.WorldPosition = m_TeapotWorldPosition;
+    teapot_transform.Rotation = m_TeapotRotation;
+    teapot_transform.Scale = m_TeapotScale;
+    m_TeapotObj->SetTransform(teapot_transform);
+    glm::mat4 teapot_model = m_TeapotObj->GetModelMatrix();
+    glm::mat4 teapot_mvp = proj * view * teapot_model;
+    m_TeapotShader->Bind();
+    m_TeapotShader->SetUniformMat4f("u_Model", teapot_model);
+    m_TeapotShader->SetUniformMat4f("u_MVP", teapot_mvp);
+    m_TeapotShader->SetUniform4f("u_LightColor", m_LightColor[0], m_LightColor[1], m_LightColor[2], m_LightColor[3]);
+    m_TeapotShader->SetUniform4f("u_ObjColor", m_ObjColor[0], m_ObjColor[1], m_ObjColor[2], m_ObjColor[3]);
+    m_TeapotShader->SetUniform1f("u_AmbientStrength", m_AmbientStrength);
+    m_TeapotShader->SetUniform1f("u_DiffuseCoefficient", m_DiffuseCoefficient);
+    m_TeapotShader->SetUniform3f("u_LightPosition", m_LightPosition.x, m_LightPosition.y, m_LightPosition.z);
+    m_TeapotShader->SetUniform1f("u_Intensity", m_Intensity);
+    m_TeapotShader->SetUniform1f("u_SpecularCoefficient", m_SpecularCoefficient);
+    m_TeapotShader->SetUniform1f("u_SpecularSize", m_SpecularLobeSize);
+    m_TeapotShader->SetUniform3f("u_CameraLocation", cameraLocation.x, cameraLocation.y, cameraLocation.z);
+    //teapotRenderer.DrawMesh(*m_Teapot, *m_TeapotShader);
+	teapotRenderer.DrawObject(*m_TeapotObj, *m_TeapotShader);
 }
 
 void test::TestSimpleLightScene::OnUpdate(GLFWwindow* window, float deltaTime)
@@ -166,8 +191,11 @@ void test::TestSimpleLightScene::OnImGuiRender()
 {
 	Test::OnImGuiRender();
     ImGui::SliderFloat3("Light Position", &m_LightPosition.x, -6.f,6.f);
-    ImGui::SliderFloat3("Obj Position", &m_ObjPosition.x, -6.f, 6.f);
-    ImGui::ColorEdit4("Light Color", m_LightColor);
+    //ImGui::SliderFloat3("Obj Position", &m_ObjPosition.x, -6.f, 6.f);
+    ImGui::SliderFloat3("Teapot Position", &m_TeapotWorldPosition.x, -6.f,6.f);
+    ImGui::SliderFloat3("Teapot Rotation", &m_TeapotRotation.x, -360.f, 360.f);
+    ImGui::SliderFloat3("Teapot Scale", &m_TeapotScale.x, 0.3f, 3.f);
+	ImGui::ColorEdit4("Light Color", m_LightColor);
     ImGui::ColorEdit4("Object Color", m_ObjColor);
     ImGui::SliderFloat("Ambient", &m_AmbientStrength, 0.f, 0.3f);
     ImGui::SliderFloat("Diffuse Strength", &m_DiffuseCoefficient, 0.f, 1.0f);

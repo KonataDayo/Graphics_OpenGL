@@ -87,6 +87,18 @@
     <ClCompile Include="src\test\SimpleLightScene\TestSimpleLightScene.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\util\Mesh.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\ObjParser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\Transform.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Object.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.shader" />
@@ -1452,6 +1464,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\test\SimpleLightScene\TestSimpleLightScene.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\Mesh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\ObjParser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\Transform.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
