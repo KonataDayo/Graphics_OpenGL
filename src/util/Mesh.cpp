@@ -2,16 +2,19 @@
 #include "../../VertexBufferLayout.h"
 #include <cstddef>
 
+#include "../../Shader.h"
+
 void util::Mesh::SetupMesh()
 {
 	glGenVertexArrays(1, &m_VAO);
+	glGenBuffers(1, &m_VBO);
+	glGenBuffers(1, &m_IBO);
+
 	glBindVertexArray(m_VAO);
 
-	glGenBuffers(1, &m_VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 	glBufferData(GL_ARRAY_BUFFER, m_Vertices.size() * sizeof(Vertex), m_Vertices.data(), GL_STATIC_DRAW);
 
-	glGenBuffers(1, &m_IBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(unsigned int), m_Indices.data(), GL_STATIC_DRAW);
 	// position
@@ -33,6 +36,13 @@ util::Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned
 	SetupMesh();
 }
 
+util::Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices,
+	const std::vector<FTexture>& textures)
+		: m_Vertices(vertices), m_Indices(indices), m_Textures(textures)
+{
+	SetupMesh();
+}
+
 util::Mesh::~Mesh()
 {
 
@@ -42,4 +52,25 @@ void util::Mesh::Draw()
 {
 	glBindVertexArray(m_VAO);
 	glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, nullptr);
+	glBindVertexArray(0);
+}
+
+void util::Mesh::Draw_Texture(Shader& shader)
+{
+	unsigned int diffuseNum = 1;
+	unsigned int specularNum = 1;
+	for (unsigned int i = 0 ;i < m_Textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
+		FTexture tex = m_Textures[i];
+		std::string num;
+		if (tex.type == "texture_diffuse")
+			num = std::to_string(diffuseNum++);
+		else if (tex.type == "texture_specular")
+			num = std::to_string(specularNum++);
+		shader.SetUniform1i(("material." + tex.type + num).c_str(),i);
+		glBindTexture(GL_TEXTURE_2D, m_Textures[i].id);
+	}
+	glActiveTexture(0);
+	Draw();
 }

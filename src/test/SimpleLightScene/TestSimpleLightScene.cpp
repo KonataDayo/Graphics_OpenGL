@@ -146,7 +146,7 @@ void test::TestSimpleLightScene::OnRender()
     glm::mat4 light_model = glm::translate(glm::mat4(1.f), m_LightPosition);
     glm::mat4 light_mvp = proj * view * light_model;
     m_LightPointShader->Bind();
-    m_LightPointShader->SetUniform4f("u_LightColor",m_LightColor[0], m_LightColor[1], m_LightColor[2], m_LightColor[3]);
+    m_LightPointShader->SetUniform3f("u_LightColor",m_LightColor[0], m_LightColor[1], m_LightColor[2]);
     m_LightPointShader->SetUniformMat4f("u_MVP",light_mvp);
 	lightRenderer.Draw(*m_LightPointVAO, *m_CubeIBO, *m_LightPointShader);
 

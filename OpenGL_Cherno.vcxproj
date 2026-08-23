@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include\GL;$(SolutionDir)Dependencies\GLFW\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src\glad\include;$(SolutionDir)Dependencies\GLEW\include\GL;$(SolutionDir)Dependencies\GLFW\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include\GL;$(SolutionDir)Dependencies\GLFW\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src\glad\include;$(SolutionDir)Dependencies\GLEW\include\GL;$(SolutionDir)Dependencies\GLFW\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,7 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include\GL;$(SolutionDir)Dependencies\GLFW\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src\glad\include;$(SolutionDir)Dependencies\GLEW\include\GL;$(SolutionDir)Dependencies\GLFW\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,7 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include\GL;$(SolutionDir)Dependencies\GLFW\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src\glad\include;$(SolutionDir)Dependencies\GLEW\include\GL;$(SolutionDir)Dependencies\GLFW\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,6 +143,7 @@
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="src\glad\src\gl.c" />
     <ClCompile Include="src\ImGui\imgui.cpp" />
     <ClCompile Include="src\ImGui\imgui_demo.cpp" />
     <ClCompile Include="src\ImGui\imgui_draw.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="src\test\TestTexture2D.cpp" />
     <ClCompile Include="src\util\Camera.cpp" />
     <ClCompile Include="src\util\Mesh.cpp" />
+    <ClCompile Include="src\util\Model.cpp" />
     <ClCompile Include="src\util\ObjParser.cpp" />
     <ClCompile Include="src\util\Transform.cpp" />
     <ClCompile Include="stb_image.cpp" />
@@ -171,9 +173,11 @@
     <None Include="Basic.shader" />
     <None Include="res\shaders\BlinnPhong.shader" />
     <None Include="res\shaders\BlinnPhongWithGammaCorrection.shader" />
+    <None Include="res\shaders\HDR.shader" />
     <None Include="res\shaders\LightSource.shader" />
     <None Include="res\shaders\Spotlight.shader" />
     <None Include="res\shaders\ThreeDimension.shader" />
+    <None Include="res\shaders\Tunnel.shader" />
     <None Include="src\glm\detail\func_common.inl" />
     <None Include="src\glm\detail\func_common_simd.inl" />
     <None Include="src\glm\detail\func_exponential.inl" />
@@ -626,6 +630,7 @@
     <ClInclude Include="src\test\TestTexture2D.h" />
     <ClInclude Include="src\util\Camera.h" />
     <ClInclude Include="src\util\Mesh.h" />
+    <ClInclude Include="src\util\Model.h" />
     <ClInclude Include="src\util\ObjParser.h" />
     <ClInclude Include="src\util\Transform.h" />
     <ClInclude Include="stb_image.h" />

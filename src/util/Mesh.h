@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "glm/vec3.hpp"
@@ -14,23 +15,31 @@ struct Vertex
 	glm::vec2 TexCoord;
 };
 
+struct FTexture
+{
+	unsigned int id;
+	std::string type;
+	std::string path;
+};
+
 namespace util
 {
 	class Mesh
 	{
 	private:
-		unsigned int m_VAO;
-		unsigned int m_VBO;
-		unsigned int m_IBO;
+		unsigned int m_VAO, m_VBO, m_IBO;
 
 		std::vector<Vertex> m_Vertices;
 		std::vector<unsigned int> m_Indices;
+		std::vector<FTexture> m_Textures;
 
 		void SetupMesh();
 	public:
 		Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
+		Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, const std::vector<FTexture>& textures);
 		~Mesh();
 
 		void Draw();
+		void Draw_Texture(Shader& shader);
 	};
 }
