@@ -149,6 +149,8 @@
     <ClCompile Include="src\ImGui\imgui_draw.cpp" />
     <ClCompile Include="src\ImGui\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="src\Object.cpp" />
+    <ClCompile Include="src\test\EnvironmentMapping\TestEnvironmentMapping.cpp" />
+    <ClCompile Include="src\test\Framebuffer\TestFramebuffer.cpp" />
     <ClCompile Include="src\test\HDR\TestHDR.cpp" />
     <ClCompile Include="src\test\SimpleLightScene\TestSimpleLightScene.cpp" />
     <ClCompile Include="src\test\Spotlight\TestSpotlight.cpp" />
@@ -173,9 +175,12 @@
     <None Include="Basic.shader" />
     <None Include="res\shaders\BlinnPhong.shader" />
     <None Include="res\shaders\BlinnPhongWithGammaCorrection.shader" />
+    <None Include="res\shaders\Cubemap.shader" />
     <None Include="res\shaders\HDR.shader" />
     <None Include="res\shaders\LightSource.shader" />
+    <None Include="res\shaders\Skybox.shader" />
     <None Include="res\shaders\Spotlight.shader" />
+    <None Include="res\shaders\TextureOnly.shader" />
     <None Include="res\shaders\ThreeDimension.shader" />
     <None Include="res\shaders\Tunnel.shader" />
     <None Include="src\glm\detail\func_common.inl" />
@@ -318,6 +323,7 @@
     <None Include="src\glm\gtx\vector_angle.inl" />
     <None Include="src\glm\gtx\vector_query.inl" />
     <None Include="src\glm\gtx\wrap.inl" />
+    <None Include="res\shaders\Postprocessing.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IndexBuffer.h" />
@@ -621,6 +627,8 @@
     <ClInclude Include="src\stb_rect_pack.h" />
     <ClInclude Include="src\stb_textedit.h" />
     <ClInclude Include="src\stb_truetype.h" />
+    <ClInclude Include="src\test\EnvironmentMapping\TestEnvironmentMapping.h" />
+    <ClInclude Include="src\test\Framebuffer\TestFramebuffer.h" />
     <ClInclude Include="src\test\HDR\TestHDR.h" />
     <ClInclude Include="src\test\SimpleLightScene\TestSimpleLightScene.h" />
     <ClInclude Include="src\test\Spotlight\TestSpotlight.h" />

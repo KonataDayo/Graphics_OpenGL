@@ -20,6 +20,8 @@
 #include "test/TestCube3D.h"
 #include "test/TestFOV.h"
 #include "test/TestTexture2D.h"
+#include "test/EnvironmentMapping/TestEnvironmentMapping.h"
+#include "test/Framebuffer/TestFramebuffer.h"
 #include "test/HDR/TestHDR.h"
 #include "test/SimpleLightScene/TestSimpleLightScene.h"
 #include "test/Spotlight/TestSpotlight.h"
@@ -73,6 +75,8 @@ int main(void)
     testMenu->RegisterTest<test::TestSimpleLightScene>("Blinn-Phong");
     testMenu->RegisterTest<test::TestSpotlight>("Spotlight_BlinnPhong");
     testMenu->RegisterTest<test::TestHDR>("HDR");
+    testMenu->RegisterTest<test::TestFramebuffer>("Postprocessing");
+    testMenu->RegisterTest<test::TestEnvironmentMapping>("Environment Mapping");
 
     currentTest = testMenu;
 
