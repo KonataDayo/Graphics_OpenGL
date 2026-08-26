@@ -8,11 +8,12 @@
 class Object
 {
 private:
-	std::unique_ptr<util::Mesh> m_Mesh;
+	std::shared_ptr<util::Mesh> m_Mesh;
 	util::Transform m_Transform;
 
 public:
 	Object(const std::string& filepath, glm::vec3 world_position, glm::vec3 rotation, glm::vec3 scale);
+	Object(std::shared_ptr<util::Mesh> mesh, glm::vec3 world_position, glm::vec3 rotation, glm::vec3 scale);
 	~Object();
 
 	glm::mat4 GetModelMatrix() const;

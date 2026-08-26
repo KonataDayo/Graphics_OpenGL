@@ -1,4 +1,5 @@
 #include "ObjParser.h"
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -9,15 +10,28 @@ void util::ObjParser::ParseFace(const std::string& token, const std::vector<glm:
                                 const std::vector<glm::vec3>& normals, const std::vector<glm::vec2>& tex_coords,
 								std::vector<Vertex>& vertices)
 {
-	unsigned int posIndex, texIndex, normIndex;
-	sscanf_s(token.c_str(), "%d/%d/%d", &posIndex, &texIndex, &normIndex);
-	posIndex--;
-	texIndex--;
-	normIndex--;
-	Vertex vertex;
-	vertex.Position = positions[posIndex];
-	vertex.Normal = normals[normIndex];
-	vertex.TexCoord = tex_coords[texIndex];
+	// A face token is "v", "v/vt", "v//vn" or "v/vt/vn" - meshes without UVs
+	// (or without normals) simply leave those fields empty. Absent fields stay 0.
+	int index[3] = { 0, 0, 0 };
+	for (size_t i = 0, start = 0; i < 3 && start <= token.size(); i++)
+	{
+		size_t slash = token.find('/', start);
+		if (slash == std::string::npos)
+			slash = token.size();
+		if (slash > start)
+			index[i] = std::atoi(token.substr(start, slash - start).c_str());
+		start = slash + 1;
+	}
+
+	// OBJ indices are 1-based, so 0 means "this vertex has no such attribute".
+	Vertex vertex{};
+	if (index[0] > 0 && index[0] <= (int)positions.size())
+		vertex.Position = positions[index[0] - 1];
+	if (index[1] > 0 && index[1] <= (int)tex_coords.size())
+		vertex.TexCoord = tex_coords[index[1] - 1];
+	if (index[2] > 0 && index[2] <= (int)normals.size())
+		vertex.Normal = normals[index[2] - 1];
+
 	vertices.push_back(vertex);
 }
 

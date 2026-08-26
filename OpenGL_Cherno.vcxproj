@@ -152,6 +152,7 @@
     <ClCompile Include="src\test\EnvironmentMapping\TestEnvironmentMapping.cpp" />
     <ClCompile Include="src\test\Framebuffer\TestFramebuffer.cpp" />
     <ClCompile Include="src\test\HDR\TestHDR.cpp" />
+    <ClCompile Include="src\test\PBR\TestPBR.cpp" />
     <ClCompile Include="src\test\SimpleLightScene\TestSimpleLightScene.cpp" />
     <ClCompile Include="src\test\Spotlight\TestSpotlight.cpp" />
     <ClCompile Include="src\test\Test.cpp" />
@@ -178,6 +179,9 @@
     <None Include="res\shaders\Cubemap.shader" />
     <None Include="res\shaders\HDR.shader" />
     <None Include="res\shaders\LightSource.shader" />
+    <None Include="res\shaders\PBR_NoTexture.shader" />
+    <None Include="res\shaders\PostProcessTemplate.shader" />
+    <None Include="res\shaders\SimpleHDR.shader" />
     <None Include="res\shaders\Skybox.shader" />
     <None Include="res\shaders\Spotlight.shader" />
     <None Include="res\shaders\TextureOnly.shader" />
@@ -630,6 +634,7 @@
     <ClInclude Include="src\test\EnvironmentMapping\TestEnvironmentMapping.h" />
     <ClInclude Include="src\test\Framebuffer\TestFramebuffer.h" />
     <ClInclude Include="src\test\HDR\TestHDR.h" />
+    <ClInclude Include="src\test\PBR\TestPBR.h" />
     <ClInclude Include="src\test\SimpleLightScene\TestSimpleLightScene.h" />
     <ClInclude Include="src\test\Spotlight\TestSpotlight.h" />
     <ClInclude Include="src\test\TestCamera.h" />

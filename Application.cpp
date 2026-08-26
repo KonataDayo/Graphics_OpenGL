@@ -23,6 +23,7 @@
 #include "test/EnvironmentMapping/TestEnvironmentMapping.h"
 #include "test/Framebuffer/TestFramebuffer.h"
 #include "test/HDR/TestHDR.h"
+#include "test/PBR/TestPBR.h"
 #include "test/SimpleLightScene/TestSimpleLightScene.h"
 #include "test/Spotlight/TestSpotlight.h"
 
@@ -77,6 +78,7 @@ int main(void)
     testMenu->RegisterTest<test::TestHDR>("HDR");
     testMenu->RegisterTest<test::TestFramebuffer>("Postprocessing");
     testMenu->RegisterTest<test::TestEnvironmentMapping>("Environment Mapping");
+    testMenu->RegisterTest<test::TestPBR>("PBR");
 
     currentTest = testMenu;
 
