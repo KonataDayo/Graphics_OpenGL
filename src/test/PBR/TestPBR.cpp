@@ -42,7 +42,7 @@ test::TestPBR::TestPBR()
     }
 
     //m_SphereShader_NoTexture = std::make_unique<Shader>("res/shaders/ThreeDimension.shader");
-    m_SphereShader_NoTexture = std::make_unique<Shader>("res/shaders/PBR_NoTexture.shader");
+    m_SphereShader = std::make_unique<Shader>("res/shaders/PBR_NoTexture.shader");
     m_QuadShader = std::make_unique<Shader>("res/shaders/SimpleHDR.shader");
     m_Camera = std::make_unique<Camera>();
     glEnable(GL_DEPTH_TEST);
@@ -113,37 +113,37 @@ void test::TestPBR::OnRender()
     glm::mat4 cameraDir = m_Camera->GetLookAtMatrix();
     view = cameraDir * view;
 
-	m_SphereShader_NoTexture->Bind();
+    m_SphereShader->Bind();
     for (unsigned int i = 0; i < m_Spheres.size(); i++)
     {
 		glm::mat4 model = m_Spheres[i].GetModelMatrix();
         model = glm::translate(model, m_SphereTranslation);
 		glm::mat4 sphereMVP = proj * view * model;
-		m_SphereShader_NoTexture->SetUniformMat4f("proj",proj);
-        m_SphereShader_NoTexture->SetUniformMat4f("view",view);
-        m_SphereShader_NoTexture->SetUniformMat4f("model",model);
+        m_SphereShader->SetUniformMat4f("proj",proj);
+        m_SphereShader->SetUniformMat4f("view",view);
+        m_SphereShader->SetUniformMat4f("model",model);
     	for (unsigned int j = 0; j < 4; j++)
         {
-            m_SphereShader_NoTexture->SetUniform3f(
+            m_SphereShader->SetUniform3f(
 				"lightPositions[" + std::to_string(j) + "]",
                 m_LightPos[j].x,
                 m_LightPos[j].y,
                 m_LightPos[j].z
             );
-            m_SphereShader_NoTexture->SetUniform3f(
+            m_SphereShader->SetUniform3f(
                 "lightColors[" + std::to_string(j) + "]",
                 m_LightColor[j].x,
                 m_LightColor[j].y,
                 m_LightColor[j].z
             );
         }
-        m_SphereShader_NoTexture->SetUniform3f("albedo",m_SphereAlbedo.x,m_SphereAlbedo.y,m_SphereAlbedo.z);
+        m_SphereShader->SetUniform3f("albedo",m_SphereAlbedo.x,m_SphereAlbedo.y,m_SphereAlbedo.z);
         float roughness = (i % m_SphereRow) / (m_SphereRow - 1.f);
         float metallic = (i / m_SphereRow) / (m_SphereColumn - 1.f);
-    	m_SphereShader_NoTexture->SetUniform1f("roughness",roughness);
-    	m_SphereShader_NoTexture->SetUniform1f("metallic",metallic);
+        m_SphereShader->SetUniform1f("roughness",roughness);
+        m_SphereShader->SetUniform1f("metallic",metallic);
         glm::vec3 camPos = m_Camera->GetCameraLocation();
-    	m_SphereShader_NoTexture->SetUniform3f("cameraPos",camPos.x,camPos.y,camPos.z);
+        m_SphereShader->SetUniform3f("cameraPos",camPos.x,camPos.y,camPos.z);
     	m_Spheres[i].DrawObject();
     }
 

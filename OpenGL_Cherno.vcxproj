@@ -153,6 +153,8 @@
     <ClCompile Include="src\test\Framebuffer\TestFramebuffer.cpp" />
     <ClCompile Include="src\test\HDR\TestHDR.cpp" />
     <ClCompile Include="src\test\PBR\TestPBR.cpp" />
+    <ClCompile Include="src\test\PCSS\TestPCSS.cpp" />
+    <ClCompile Include="src\test\ShadowMapping\TestShadowMapping.cpp" />
     <ClCompile Include="src\test\SimpleLightScene\TestSimpleLightScene.cpp" />
     <ClCompile Include="src\test\Spotlight\TestSpotlight.cpp" />
     <ClCompile Include="src\test\Test.cpp" />
@@ -160,6 +162,7 @@
     <ClCompile Include="src\test\TestCube3D.cpp" />
     <ClCompile Include="src\test\TestFOV.cpp" />
     <ClCompile Include="src\test\TestTexture2D.cpp" />
+    <ClCompile Include="src\test\TexturePBR\TestTexturePBR.cpp" />
     <ClCompile Include="src\util\Camera.cpp" />
     <ClCompile Include="src\util\Mesh.cpp" />
     <ClCompile Include="src\util\Model.cpp" />
@@ -176,10 +179,15 @@
     <None Include="Basic.shader" />
     <None Include="res\shaders\BlinnPhong.shader" />
     <None Include="res\shaders\BlinnPhongWithGammaCorrection.shader" />
+    <None Include="res\shaders\BlinnPhong_PCF.shader" />
+    <None Include="res\shaders\BlinnPhong_Shadow.shader" />
     <None Include="res\shaders\Cubemap.shader" />
+    <None Include="res\shaders\debugDepth.shader" />
+    <None Include="res\shaders\DepthMap.shader" />
     <None Include="res\shaders\HDR.shader" />
     <None Include="res\shaders\LightSource.shader" />
     <None Include="res\shaders\PBR_NoTexture.shader" />
+    <None Include="res\shaders\PBR_Texture.shader" />
     <None Include="res\shaders\PostProcessTemplate.shader" />
     <None Include="res\shaders\SimpleHDR.shader" />
     <None Include="res\shaders\Skybox.shader" />
@@ -332,6 +340,7 @@
   <ItemGroup>
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="res\shaders\DepthMap_PCF.shader" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="src\glm\common.hpp" />
     <ClInclude Include="src\glm\detail\compute_common.hpp" />
@@ -635,12 +644,15 @@
     <ClInclude Include="src\test\Framebuffer\TestFramebuffer.h" />
     <ClInclude Include="src\test\HDR\TestHDR.h" />
     <ClInclude Include="src\test\PBR\TestPBR.h" />
+    <ClInclude Include="src\test\PCSS\TestPCSS.h" />
+    <ClInclude Include="src\test\ShadowMapping\TestShadowMapping.h" />
     <ClInclude Include="src\test\SimpleLightScene\TestSimpleLightScene.h" />
     <ClInclude Include="src\test\Spotlight\TestSpotlight.h" />
     <ClInclude Include="src\test\TestCamera.h" />
     <ClInclude Include="src\test\TestCube3D.h" />
     <ClInclude Include="src\test\TestFOV.h" />
     <ClInclude Include="src\test\TestTexture2D.h" />
+    <ClInclude Include="src\test\TexturePBR\TestTexturePBR.h" />
     <ClInclude Include="src\util\Camera.h" />
     <ClInclude Include="src\util\Mesh.h" />
     <ClInclude Include="src\util\Model.h" />

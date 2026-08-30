@@ -12,15 +12,15 @@ namespace test
 	{
 	private:
 		std::shared_ptr<util::Mesh> m_SphereMesh;
-		unsigned int m_SphereRow = 7;
-		unsigned int m_SphereColumn = 7;
+		unsigned int m_SphereRow = 10;
+		unsigned int m_SphereColumn = 10;
 		float m_SphereSpacing = 2.5f;
 		glm::vec3 m_SphereAlbedo;
 		glm::vec3 m_SphereTranslation;
 		std::vector<Object> m_Spheres;
 		std::vector<glm::vec3> m_LightPos;
 		std::vector<glm::vec3> m_LightColor;
-		std::unique_ptr<Shader> m_SphereShader_NoTexture;
+		std::unique_ptr<Shader> m_SphereShader;
 		std::unique_ptr<Camera> m_Camera;
 
 		unsigned int m_QuadVAO, m_QuadVBO;

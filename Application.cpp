@@ -24,8 +24,11 @@
 #include "test/Framebuffer/TestFramebuffer.h"
 #include "test/HDR/TestHDR.h"
 #include "test/PBR/TestPBR.h"
+#include "test/PCSS/TestPCSS.h"
+#include "test/ShadowMapping/TestShadowMapping.h"
 #include "test/SimpleLightScene/TestSimpleLightScene.h"
 #include "test/Spotlight/TestSpotlight.h"
+#include "test/TexturePBR/TestTexturePBR.h"
 
 int main(void)
 {
@@ -79,6 +82,9 @@ int main(void)
     testMenu->RegisterTest<test::TestFramebuffer>("Postprocessing");
     testMenu->RegisterTest<test::TestEnvironmentMapping>("Environment Mapping");
     testMenu->RegisterTest<test::TestPBR>("PBR");
+    testMenu->RegisterTest<test::TestTexturePBR>("Texture PBR");
+    testMenu->RegisterTest<test::TestShadowMapping>("Shadow Mapping");
+    testMenu->RegisterTest<test::TestPCSS>("PCSS");
 
     currentTest = testMenu;
 

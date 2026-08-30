@@ -6,6 +6,18 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
 
+#include "glm/vec3.hpp"
+
+namespace pbr
+{
+	struct PBRParams
+	{
+		glm::vec3 albedo;
+		float roughness;
+		float metallic;
+	};
+}
+
 namespace test
 {
 	class Test

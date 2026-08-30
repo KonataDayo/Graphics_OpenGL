@@ -120,6 +120,15 @@
     <ClCompile Include="src\test\PBR\TestPBR.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\test\TexturePBR\TestTexturePBR.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\ShadowMapping\TestShadowMapping.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\PCSS\TestPCSS.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.shader" />
@@ -557,6 +566,11 @@
     <None Include="res\shaders\PBR_NoTexture.shader" />
     <None Include="res\shaders\PostProcessTemplate.shader" />
     <None Include="res\shaders\SimpleHDR.shader" />
+    <None Include="res\shaders\PBR_Texture.shader" />
+    <None Include="res\shaders\DepthMap.shader" />
+    <None Include="res\shaders\BlinnPhong_Shadow.shader" />
+    <None Include="res\shaders\debugDepth.shader" />
+    <None Include="res\shaders\BlinnPhong_PCF.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -1526,6 +1540,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\test\PBR\TestPBR.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\TexturePBR\TestTexturePBR.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\ShadowMapping\TestShadowMapping.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\PCSS\TestPCSS.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="res\shaders\DepthMap_PCF.shader">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
