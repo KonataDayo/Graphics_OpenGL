@@ -1,5 +1,6 @@
-
 #include "TestPCSS.h"
+
+#include <random>
 
 #include "../../../Shader.h"
 #include "../../../Texture.h"
@@ -8,6 +9,80 @@
 #include "util/Camera.h"
 
 
+std::vector<glm::vec2> test::TestPCSS::PoissonDiskSampling()
+{
+	float radius = 1.f / sqrt((float)POISSON_MAX_SAMPLES);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> r_dis(radius, 2 * radius);
+    std::uniform_real_distribution<float> a_dis(0.f, 2.f * (float)PI);
+
+    std::vector<glm::vec2> result;
+    result.emplace_back(0.f,0.f);
+    std::vector<glm::vec2> activeList;
+    activeList.emplace_back(0.f, 0.f);
+    // default starting point: (0,0)
+    int lastIndex = -1;
+    while (!activeList.empty() && result.size() < POISSON_MAX_SAMPLES)
+    {
+		std::uniform_int_distribution<int> index_dis(0, activeList.size()-1);
+        int randomIndex = index_dis(gen);
+	    glm::vec2 p = activeList[randomIndex];
+        bool bFoundValid = false;
+    	for (int attempt = 0; attempt < POISSON_MAX_INVALID_POINT_NUM; attempt++)
+        {
+			bool bValid = true;
+			float r = r_dis(gen);
+		    float angle = a_dis(gen) ;
+			glm::vec2 samplePoint = p + glm::vec2(r * cos(angle), r * sin(angle));
+	        for (const glm::vec2& existingPoint : result)
+	        {
+		        if (glm::distance(existingPoint, samplePoint) < radius)
+		        {
+					bValid = false; // invalid
+                    break;
+		        }
+	        }
+	        if (bValid)
+	        {
+				activeList.push_back(samplePoint);
+    			result.push_back(samplePoint);
+                bFoundValid = true;
+                break;
+	        }
+        }
+        if (!bFoundValid)
+			activeList.erase(activeList.begin() + randomIndex);
+    }
+
+    float maxRadius = 0.0f;
+    glm::vec2 center(0.0f); 
+    for (const auto& p : result) 
+    {
+        center += p;
+    }
+    if (!result.empty()) center /= static_cast<float>(result.size());
+
+    for (auto& p : result) 
+    {
+        p -= center; 
+        maxRadius = std::max(maxRadius, glm::length(p));
+    }
+
+    if (maxRadius > 0.0f) 
+    {
+        for (auto& p : result) 
+        {
+            p /= maxRadius;
+        }
+    }
+
+    while (result.size() < POISSON_MAX_SAMPLES) 
+    {
+        result.emplace_back(0.0f, 0.0f);
+    }
+    return result;
+}
 
 void test::TestPCSS::OnRender()
 {
@@ -43,10 +118,12 @@ void test::TestPCSS::OnRender()
         glm::mat4 model = glm::translate(glm::mat4(1.f), m_cubeModelMat[i]);
 
         // The rotation must be identical to the rotation used in pass 2
-        float rotationAngle = 12.f + i * 10.f;
-        model = glm::rotate(model, glm::radians(rotationAngle), glm::vec3(0.f, 1.f, 0.f));
         model = glm::translate(model, m_cubeTranslation[i]);
-        m_shader->SetUniformMat4f("model", model);
+        model = glm::rotate(model,glm::radians(m_rot.x), glm::vec3(1.f,0.f,0.f));
+        model = glm::rotate(model, glm::radians(m_rot.y), glm::vec3(0.f, 1.f, 0.f));
+        model = glm::rotate(model, glm::radians(m_rot.z), glm::vec3(0.f, 0.f, 1.f));
+        model = glm::scale(model, glm::vec3(5.0f, 1.f,1.f));
+    	m_shader->SetUniformMat4f("model", model);
         glDrawArrays(GL_TRIANGLES, 0, 36);
     }
 
@@ -84,9 +161,8 @@ void test::TestPCSS::OnRender()
     }
     else
     {
-
 	    glViewport(0, 0, 1920, 1080);
-		    m_objShader->Bind();
+		m_objShader->Bind();
 
 	    // Texture unit 0: diffuse texture
 	    glActiveTexture(GL_TEXTURE0);
@@ -104,7 +180,8 @@ void test::TestPCSS::OnRender()
         m_objShader->SetUniform1i("dm_width", DEPTH_MAP_WIDTH_PCF);
         m_objShader->SetUniform1i("dm_height", DEPTH_MAP_HEIGHT_PCF);
         m_objShader->SetUniform1i("filter_size", m_filterSize);
-
+        m_objShader->SetUniformVec2f("poisson_disk", POISSON_MAX_SAMPLES, m_poissonDisk);
+        
 
 	    glm::mat4 proj = glm::perspective(glm::radians(45.f), 1920.f / 1080.f, 0.1f, 500.f);
 	    glm::mat4 view = m_camera->GetLookAtMatrix();
@@ -118,10 +195,12 @@ void test::TestPCSS::OnRender()
 	        glm::mat4 model = glm::translate(glm::mat4(1.f), m_cubeModelMat[i]);
 
 	        // Apply the same rotation as in the depth pass
-	        float rotationAngle = 12.f + i * 10.f;
-	        model = glm::rotate(model, glm::radians(rotationAngle), glm::vec3(0.f, 1.f, 0.f));
 	        model = glm::translate(model, m_cubeTranslation[i]);
-	        glm::mat4 mvp = proj * view * model;
+            model = glm::rotate(model, glm::radians(m_rot.x), glm::vec3(1.f, 0.f, 0.f));
+            model = glm::rotate(model, glm::radians(m_rot.y), glm::vec3(0.f, 1.f, 0.f));
+            model = glm::rotate(model, glm::radians(m_rot.z), glm::vec3(0.f, 0.f, 1.f));
+            model = glm::scale(model, glm::vec3(5.0f, 1.f, 1.f));
+	    	glm::mat4 mvp = proj * view * model;
 
 	        m_objShader->SetUniformMat4f("u_Model", model);
 	        m_objShader->SetUniformMat4f("u_MVP", mvp);
@@ -167,6 +246,7 @@ void test::TestPCSS::OnImGuiRender()
     ImGui::SliderFloat3("Cube Translation2", &m_cubeTranslation[1].x, -10.f, 10.f);
     ImGui::SliderFloat3("Cube Translation3", &m_cubeTranslation[2].x, -10.f, 10.f);
 	ImGui::SliderInt("Filter Size", &m_filterSize, 1, 7);
+    ImGui::SliderFloat3("Rotation", &m_rot.x ,0.f, 180.f);
     ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
 }
 
@@ -177,17 +257,20 @@ test::TestPCSS::TestPCSS()
     // Scene layout
     // ============================================================
 
-    // Center cube: slightly elevated above the floor
-    m_cubeModelMat.emplace_back(0.0f, 1.0f, 0.0f);
-    m_cubeTranslation.emplace_back(0.f,0.f,0.f);
+	// Light
+    m_lightPos = glm::vec3(3.0f, 7.0f, 3.0f);
 
-    // Right cube
-    m_cubeModelMat.emplace_back(3.f, 0.0f, 1.5f);
-    m_cubeTranslation.emplace_back(0.f, 0.f, 0.f);
+    // Cube 1：主要遮挡物
+    m_cubeModelMat.emplace_back(0.0f, -0.5f, 0.0f);
+    m_cubeTranslation.emplace_back(0.0f, 0.0f, 0.0f);
 
-    // Left cube
-    m_cubeModelMat.emplace_back(-2.5f, 0.0f, 2.0f);
-    m_cubeTranslation.emplace_back(0.f, 0.f, 0.f);
+    // Cube 2：放远一点，用来观察第二个阴影
+    m_cubeModelMat.emplace_back(3.5f, -1.5f, 1.5f);
+    m_cubeTranslation.emplace_back(0.0f, 0.0f, 0.0f);
+
+    // Cube 3
+    m_cubeModelMat.emplace_back(-3.5f, -1.5f, 1.0f);
+    m_cubeTranslation.emplace_back(0.0f, 0.0f, 0.0f);
 
 
 
@@ -381,6 +464,12 @@ test::TestPCSS::TestPCSS()
     glReadBuffer(GL_NONE);
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	m_poissonDisk = PoissonDiskSampling();
+    for (const glm::vec2& vec : m_poissonDisk)
+    {
+	    std::cout<<"x: "<<vec.x<<" y: "<<vec.y<<std::endl;
+    }
 }
 
 

@@ -23,6 +23,7 @@
 #include "test/EnvironmentMapping/TestEnvironmentMapping.h"
 #include "test/Framebuffer/TestFramebuffer.h"
 #include "test/HDR/TestHDR.h"
+#include "test/IBL/TestIBL.h"
 #include "test/PBR/TestPBR.h"
 #include "test/PCSS/TestPCSS.h"
 #include "test/ShadowMapping/TestShadowMapping.h"
@@ -85,6 +86,7 @@ int main(void)
     testMenu->RegisterTest<test::TestTexturePBR>("Texture PBR");
     testMenu->RegisterTest<test::TestShadowMapping>("Shadow Mapping");
     testMenu->RegisterTest<test::TestPCSS>("PCSS");
+    testMenu->RegisterTest<test::TestIBL>("IBL");
 
     currentTest = testMenu;
 

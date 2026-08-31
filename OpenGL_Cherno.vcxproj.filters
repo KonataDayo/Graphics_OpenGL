@@ -129,6 +129,9 @@
     <ClCompile Include="src\test\PCSS\TestPCSS.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\test\IBL\TestIBL.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.shader" />
@@ -571,6 +574,8 @@
     <None Include="res\shaders\BlinnPhong_Shadow.shader" />
     <None Include="res\shaders\debugDepth.shader" />
     <None Include="res\shaders\BlinnPhong_PCF.shader" />
+    <None Include="res\shaders\HDRI.shader" />
+    <None Include="res\shaders\FromEquirectangleToCubemapShader.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -1552,6 +1557,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="res\shaders\DepthMap_PCF.shader">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\IBL\TestIBL.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

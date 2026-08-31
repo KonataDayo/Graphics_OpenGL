@@ -32,7 +32,7 @@ void Camera::Mouse_Callback(GLFWwindow* window, double xpos, double ypos)
 }
 
 Camera::Camera()
-	: m_MoveSpeed(5.f), m_CameraLocation(0.f,0.f,3.f),
+	: m_MoveSpeed(5.f), m_CameraLocation(0.f,0.f,0.f),
 	m_LookAtDirection(0.f, 0.f, -1.f), m_UpDirection(0.f, 1.f, 0.f),
 	m_Yaw(0), m_Pitch(0), m_TurnRate(30),
 	m_LastPosY(540), m_LastPosX(960), m_FOV(45)

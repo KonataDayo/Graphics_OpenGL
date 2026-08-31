@@ -4,6 +4,7 @@
 #include <sstream>
 #include <fstream>
 #include "Renderer.h"
+#include "glm/gtc/type_ptr.hpp"
 
 Shader::Shader(const std::string& filepath)
 	: m_FilePath(filepath)
@@ -58,6 +59,11 @@ void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2,
 void Shader::SetUniformMat4f(const std::string& name, glm::mat4 matrix)
 {
 	GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
+}
+
+void Shader::SetUniformVec2f(const std::string& name, int num, const std::vector<glm::vec2>& vec)
+{
+    GLCall(glUniform2fv(GetUniformLocation(name), num, glm::value_ptr(vec[0])));
 }
 
 unsigned int Shader::GetUniformLocation(const std::string& name)

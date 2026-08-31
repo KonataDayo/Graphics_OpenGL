@@ -152,6 +152,7 @@
     <ClCompile Include="src\test\EnvironmentMapping\TestEnvironmentMapping.cpp" />
     <ClCompile Include="src\test\Framebuffer\TestFramebuffer.cpp" />
     <ClCompile Include="src\test\HDR\TestHDR.cpp" />
+    <ClCompile Include="src\test\IBL\TestIBL.cpp" />
     <ClCompile Include="src\test\PBR\TestPBR.cpp" />
     <ClCompile Include="src\test\PCSS\TestPCSS.cpp" />
     <ClCompile Include="src\test\ShadowMapping\TestShadowMapping.cpp" />
@@ -184,7 +185,9 @@
     <None Include="res\shaders\Cubemap.shader" />
     <None Include="res\shaders\debugDepth.shader" />
     <None Include="res\shaders\DepthMap.shader" />
+    <None Include="res\shaders\FromEquirectangleToCubemapShader.shader" />
     <None Include="res\shaders\HDR.shader" />
+    <None Include="res\shaders\HDRI.shader" />
     <None Include="res\shaders\LightSource.shader" />
     <None Include="res\shaders\PBR_NoTexture.shader" />
     <None Include="res\shaders\PBR_Texture.shader" />
@@ -643,6 +646,7 @@
     <ClInclude Include="src\test\EnvironmentMapping\TestEnvironmentMapping.h" />
     <ClInclude Include="src\test\Framebuffer\TestFramebuffer.h" />
     <ClInclude Include="src\test\HDR\TestHDR.h" />
+    <ClInclude Include="src\test\IBL\TestIBL.h" />
     <ClInclude Include="src\test\PBR\TestPBR.h" />
     <ClInclude Include="src\test\PCSS\TestPCSS.h" />
     <ClInclude Include="src\test\ShadowMapping\TestShadowMapping.h" />
