@@ -1,10 +1,12 @@
 #pragma once
 #include <GLFW/glfw3native.h>
+#include <glm/detail/type_mat.hpp>
 
 #include "../Test.h"
 #include "util/Mesh.h"
 
 #define CUBEMAP_RESOLUTION 2048
+#define IRRADIANCE_MAP_RESOLUTION 32
 
 class Object;
 class Shader;
@@ -31,6 +33,13 @@ namespace test
 		unsigned int m_cubeMap;
 		unsigned int m_skyboxVAO, m_skyboxVBO;
 		std::unique_ptr<Shader> m_skyboxShader;
+		void CaptureEnvMap();
+
+		// diffuse
+		unsigned int m_irradianceMap;
+		std::unique_ptr<Shader> m_irradianceMapShader;
+
+
 
 		// Post-processing
 		unsigned int m_quadVAO;

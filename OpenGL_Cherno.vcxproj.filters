@@ -576,6 +576,7 @@
     <None Include="res\shaders\BlinnPhong_PCF.shader" />
     <None Include="res\shaders\HDRI.shader" />
     <None Include="res\shaders\FromEquirectangleToCubemapShader.shader" />
+    <None Include="res\shaders\DiffuseConvolution_IBL.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
